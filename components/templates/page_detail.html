@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ page.title }}</h1>
+<div>
+    {% for pc in components %}
+        <div class="component-preview">
+            {{ pc.component.render_from_template|safe }}
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

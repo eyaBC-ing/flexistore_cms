@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Liste des Composants{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for component in components %}
+    <div class="component-card">
+        <div class="flex justify-between items-center">
+            <h2 class="component-title">{{ component.name }}</h2>
+            <span class="px-2 py-1 text-sm rounded-full {% if component.is_active %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}">{{ component.is_active|yesno:"Actif,Inactif" }}</span>
+        </div>
+        <p class="text-gray-600 mb-2">Type: {{ component.get_type_display }}</p>
+        <div class="component-preview" id="preview-{{ component.id }}">
+            {{ component.html_template|safe }}
+        </div>
+        <div class="flex justify-end mt-4 space-x-2">
+            <a href="{% url 'component-edit' component.id %}" class="btn-secondary">Modifier</a>
+            <button hx-post="{% url 'component-toggle' component.id %}" hx-target="#preview-{{ component.id }}" class="btn-primary">{{ component.is_active|yesno:"Désactiver,Activer" }}</button>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-span-full text-center py-8">
+        <p class="text-gray-500">Aucun composant créé. <a href="{% url 'component-create' %}" class="text-blue-500">Créer un composant</a></p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="component-title">Créer une nouvelle page</h1>
+
+<form method="POST" class="component-card">
+    {% csrf_token %}
+    
+    <div>
+        <label for="title">Titre :</label>
+        <input type="text" id="title" name="title" class="form-input" required>
+    </div>
+
+    <div>
+        <label for="slug">Slug :</label>
+        <input type="text" id="slug" name="slug" class="form-input" required>
+    </div>
+
+    <h3 class="component-title" style="margin-top: 1rem;">Choisir les composants :</h3>
+
+    {% for component in components %}
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem;">
+            <input type="checkbox" id="comp{{ component.id }}" name="components" value="{{ component.id }}">
+            <label for="comp{{ component.id }}" style="flex: 1;">{{ component.name }}</label>
+            <input type="number" name="order_{{ component.id }}" value="0" class="form-input" style="width: 80px;">
+        </div>
+    {% endfor %}
+
+    <button type="submit" class="btn-primary">Créer la page</button>
+</form>
+{% endblock %}

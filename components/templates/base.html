@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FlexiStore CMS{% endblock %}</title>
+    {% load static %}
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <a href="{% url 'component-list' %}" class="flex items-center">
+                        <span class="text-xl font-semibold">FlexiStore CMS</span>
+                    </a>
+                </div>
+                <div class="flex items-center">
+                    <a href="{% url 'component-create' %}" class="bg-blue-500 text-white px-4 py-2 rounded-md">Nouveau Composant</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto py-6 px-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-white shadow-lg mt-8">
+        <div class="max-w-7xl mx-auto py-4 px-4">
+            <p class="text-center text-gray-600">© 2024 FlexiStore CMS</p>
+        </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
